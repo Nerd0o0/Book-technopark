@@ -29,8 +29,13 @@ def get_book(name):
 
 @app.route('/book', methods=['POST'])
 def add_book():
+  # TODO вернуть 400 если пользователь не передал name и author (они нам необходимы)
+  # {message: 'подставить нужное is required}, 400
   book = {'name': request.json.get('name'), 'author': request.json.get('author')}
   books.append(book)
   return json.dumps(book)
+
+# TODO создать метод удаления книги  methods=['DELETE'], вернуть кого удалили
+# TODO создать метод изменения книги  methods=['PATCH'], вернуть результат
   
 app.run()
