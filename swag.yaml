@@ -1,0 +1,100 @@
+swagger: "2.0"
+info:
+  description: "This is our first flask server"
+  version: "1.0.0"
+  title: "Swagger server"
+  contact:
+    email: "write_me@email.ru"
+tags:
+- name: "html"
+  description: "Html routs"
+- name: "book"
+  description: "All about books"
+schemes:
+- "http"
+paths:
+  /:
+    post:
+      tags:
+      - "html"
+      summary: "Show all books in html format"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Showed all books in html format"
+  /books:
+    get:
+      tags:
+      - "book"
+      summary: "Get list of all books"
+      responses:
+        "200":
+          description: "Got list of all books"
+          schema:
+            $ref: '#/definitions/Books'
+  /book/{name}:
+    get:
+      tags:
+      - "book"
+      summary: "Find book by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "name of book to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Book"
+        "404":
+          description: "Book not found"
+    post:
+      tags:
+      - "book"
+      summary: "Updates a book in the store with form data"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "name of book that needs to be updated"
+        required: true
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          required:
+            - name
+            - author
+          properties:
+            name:
+              type: string
+              description: "Name of book"
+            author:
+              type: string
+              description: "Name of author"
+      responses:
+        "200":
+          description: "Success"
+definitions:
+  Books:
+    type: array
+    items:
+      - name:
+        type: string
+        description: 'Name of book'
+      - author:
+        type: string
+        description: 'Name of author'
+  Book:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Name of book'
+      author:
+        type: string
+        description: 'Name of author'
