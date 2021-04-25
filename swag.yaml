@@ -35,6 +35,29 @@ paths:
           description: "Got list of all books"
           schema:
             $ref: '#/definitions/Books'
+  /book:
+    post:
+      tags:
+      - "book"
+      summary: "Create a book in the store with form data"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          required:
+            - name
+            - author
+          properties:
+            name:
+              type: string
+              description: "Name of book"
+            author:
+              type: string
+              description: "Name of author"
+      responses:
+        "200":
+          description: "Success"
   /book/{name}:
     get:
       tags:
